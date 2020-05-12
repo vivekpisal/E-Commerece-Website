@@ -1,0 +1,53 @@
+{% extends 'main/base1.html' %}
+
+
+{% block content %}
+<style type="text/css">
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+<div class="row" style="width: 20%; margin-left: 40%;">
+<table border="2">
+	<tr>
+		<th>Item</th>
+		<th>Price</th>
+		<th>Img</th>
+		<th>Delete</th>
+	</tr>
+{% for i in data %}
+
+        <tr>
+        	<td>{{i}} </td>
+        	<td> RS:{{i.price}}</td>
+        	<td><img src="{{i.pic.url}}" height="50" width="50" style="border-radius:20px;"></td>
+        	<td><a href="{% url 'deletecart' i.name %}"><button class="btn btn-danger">Delete</button></a></td>
+        </tr>
+{% endfor %}
+</table>
+</div>
+<div class="row" style="width: 20%; margin-left: 40%;">
+<form method="post" action="{% url 'allorder' %}">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-primary">Order Now</button>
+</form>
+</div>
+
+{% endblock %}
+
+
+
+ 

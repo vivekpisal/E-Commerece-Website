@@ -1,0 +1,77 @@
+{% extends 'main/base1.html'%}
+
+
+{% block content %}
+{% for i in items1 %}
+         <style> 
+            .geeks { 
+                width:80%; 
+                height:300px; 
+            } 
+            img { 
+                width:100%; 
+                height:100%;
+
+            } 
+        </style> 
+
+
+<div class="row" style="width: 20%;">
+
+  <div class="col-2">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a class="list-group-item list-group-item-action" data-toggle="list" href="{% url  'category' i.category %}">{{i.category}}</a>
+    </div>
+  </div>
+  </div>
+
+{% endfor %}
+
+<div style="margin-left: 18%;">
+{% for i in items %}
+
+<div class="container">    
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading" style="">{{i.name}}</div>
+        <div class="panel-body">
+          <div class="geeks">          
+          <img src="{{i.pic.url}}" class="img-responsive" style="width:100%;height: 50%;" alt="Image">
+            </div>
+        </div>
+        <div class="panel-footer">
+        	<a href="{% url 'addcart' i.id %}"><button class="btn btn-primary">
+        		Add To Cart
+        	</button></a>
+          <a href="{% url 'showproduct' i.id %}"><button class="btn btn-primary">
+            Show
+          </button></a>
+          <a href="{% url 'oneorder' i.id %}"><button class="btn btn-primary">
+            Order Now
+          </button></a>
+          {% if user.is_superuser %}
+            <a href="{% url 'deleteitem' i.id %}"><button class="btn btn-danger">
+            Delete
+          </button></a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+{% endfor %}
+<br><br>
+
+
+</div>
+
+<footer class="container-fluid text-center">
+  <p>Online Store Copyright</p>  
+  <form class="form-inline">Get deals:
+    <input type="email" class="form-control" size="50" placeholder="Email Address">
+    <button type="button" class="btn btn-danger">Sign Up</button>
+  </form>   
+</footer>
+
+
+{% endblock  %}
